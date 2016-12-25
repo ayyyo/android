@@ -11,11 +11,11 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="App" >
         <PreferenceScreen
-            android:summary="Developed Exclusively for Envato"
-            android:title="iCanStudioZ" >
+            android:summary="Create a sale"
+            android:title="For shopkeepers and merchents" >
         </PreferenceScreen>
         <PreferenceScreen
-            android:summary="icanstudioz@gmail.com"
+            android:summary="manjeshpv@gmail.com"
             android:title="Contact Us" >
         </PreferenceScreen>
      

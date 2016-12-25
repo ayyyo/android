@@ -2,9 +2,6 @@ package com.ayyayo.g.UI;
 
 import java.util.List;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 import com.ayyayo.g.Database.DatabaseHandler;
 import com.ayyayo.g.Database.ListViewSwipeGesture;
 import com.ayyayo.g.Database.News;
@@ -58,19 +55,6 @@ public class MainActivity extends FCMActivity {
                 this).defaultDisplayImageOptions(options).build();
         ImageLoader.getInstance().init(config);
         db = new DatabaseHandler(this);
-
-        AdView adView = (AdView) findViewById(R.id.adView);
-
-        if (getResources().getString(R.string.ad_unit_id).length() == 0) {
-            adView.setVisibility(View.GONE);
-        } else {
-            adView.setVisibility(View.VISIBLE);
-            AdRequest adRequest = new AdRequest.Builder()
-                    .addTestDevice("5AD47C03FEA90E3222051A8F076F8976")
-                    .addTestDevice("3A56423DE328DF0B2B09E6B157C2CC32").build();
-            adView.loadAd(adRequest);
-        }
-
 
 
         inflater = (LayoutInflater) this
