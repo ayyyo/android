@@ -1,4 +1,4 @@
-package com.icanappz.fcmpush.Push;
+package com.ayyayo.g.Push;
 
 import android.Manifest;
 import android.accounts.Account;
@@ -27,14 +27,14 @@ import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.icanappz.fcmpush.Database.DatabaseHandler;
-import com.icanappz.fcmpush.Database.News;
-import com.icanappz.fcmpush.R;
-import com.icanappz.fcmpush.Server.Server;
-import com.icanappz.fcmpush.Server.ServerConfig;
-import com.icanappz.fcmpush.UI.CustomeWebView;
-import com.icanappz.fcmpush.UI.DailogeNotice;
-import com.icanappz.fcmpush.UI.MainActivity;
+import com.ayyayo.g.Database.DatabaseHandler;
+import com.ayyayo.g.Database.News;
+import com.ayyayo.g.R;
+import com.ayyayo.g.Server.Server;
+import com.ayyayo.g.Server.ServerConfig;
+import com.ayyayo.g.UI.CustomeWebView;
+import com.ayyayo.g.UI.DailogeNotice;
+import com.ayyayo.g.UI.MainActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 

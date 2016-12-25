@@ -1,4 +1,4 @@
-package com.icanappz.fcmpush.Push;
+package com.ayyayo.g.Push;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -13,10 +13,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.icanappz.fcmpush.R;
-import com.icanappz.fcmpush.Server.Server;
-import com.icanappz.fcmpush.Server.ServerConfig;
-import com.icanappz.fcmpush.UI.MainActivity;
+import com.ayyayo.g.R;
+import com.ayyayo.g.Server.Server;
+import com.ayyayo.g.Server.ServerConfig;
+import com.ayyayo.g.UI.MainActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 

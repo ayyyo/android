@@ -1,6 +1,6 @@
-package com.icanappz.fcmpush.UI;
+package com.ayyayo.g.UI;
 
-import com.icanappz.fcmpush.R;
+import com.ayyayo.g.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

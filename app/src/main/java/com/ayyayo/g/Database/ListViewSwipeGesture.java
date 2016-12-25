@@ -1,4 +1,4 @@
-package com.icanappz.fcmpush.Database;
+package com.ayyayo.g.Database;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -16,7 +16,7 @@ import android.view.*;
 import android.view.View.OnTouchListener;
 import android.widget.*;
 
-import com.icanappz.fcmpush.R;
+import com.ayyayo.g.R;
 
 import java.util.ArrayList;
 import java.util.Collections;

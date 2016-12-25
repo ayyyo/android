@@ -1,6 +1,6 @@
-package com.icanappz.fcmpush.UI;
+package com.ayyayo.g.UI;
 
-import com.icanappz.fcmpush.R;
+import com.ayyayo.g.R;
 
 import android.app.ProgressDialog;
 import android.content.Intent;

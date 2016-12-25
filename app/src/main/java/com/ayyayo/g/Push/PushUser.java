@@ -1,4 +1,4 @@
-package com.icanappz.fcmpush.Push;
+package com.ayyayo.g.Push;
 
 /**
  * Created by BLiveInHack on 8/7/2015.

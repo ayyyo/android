@@ -1,17 +1,15 @@
-package com.icanappz.fcmpush.UI;
+package com.ayyayo.g.UI;
 
 import java.util.List;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.crash.FirebaseCrash;
-import com.icanappz.fcmpush.Database.DatabaseHandler;
-import com.icanappz.fcmpush.Database.ListViewSwipeGesture;
-import com.icanappz.fcmpush.Database.News;
-import com.icanappz.fcmpush.Push.FCMActivity;
-import com.icanappz.fcmpush.R;
+import com.ayyayo.g.Database.DatabaseHandler;
+import com.ayyayo.g.Database.ListViewSwipeGesture;
+import com.ayyayo.g.Database.News;
+import com.ayyayo.g.Push.FCMActivity;
+import com.ayyayo.g.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

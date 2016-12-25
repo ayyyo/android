@@ -1,4 +1,4 @@
-package com.icanappz.fcmpush.Push;
+package com.ayyayo.g.Push;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

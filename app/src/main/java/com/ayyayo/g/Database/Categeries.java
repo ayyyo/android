@@ -1,4 +1,4 @@
-package com.icanappz.fcmpush.Database;
+package com.ayyayo.g.Database;
 
 /**
  * Created by BLiveInHack on 13-06-2016.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.icanappz.fcmpush.Push;
+package com.ayyayo.g.Push;
 
 
 import android.app.Notification;
@@ -29,16 +29,15 @@ import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.icanappz.fcmpush.UI.CustomeWebView;
-import com.icanappz.fcmpush.UI.DailogeNotice;
-import com.icanappz.fcmpush.Database.DatabaseHandler;
-import com.icanappz.fcmpush.UI.MainActivity;
-import com.icanappz.fcmpush.Database.News;
-import com.icanappz.fcmpush.R;
+import com.ayyayo.g.UI.CustomeWebView;
+import com.ayyayo.g.UI.DailogeNotice;
+import com.ayyayo.g.Database.DatabaseHandler;
+import com.ayyayo.g.UI.MainActivity;
+import com.ayyayo.g.Database.News;
+import com.ayyayo.g.R;
 
 import java.util.Map;
 

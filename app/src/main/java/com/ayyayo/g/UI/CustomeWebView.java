@@ -1,8 +1,8 @@
-package com.icanappz.fcmpush.UI;
+package com.ayyayo.g.UI;
 
 
-import com.icanappz.fcmpush.Database.NoZoomControllWebView;
-import com.icanappz.fcmpush.R;
+import com.ayyayo.g.Database.NoZoomControllWebView;
+import com.ayyayo.g.R;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -44,7 +44,7 @@ public class CustomeWebView extends AppCompatActivity{
 		Bundle where = getIntent().getExtras();
 		url = where.getString("link");
 		}catch (NullPointerException e) {
-			url="http://www.icanstudioz.com";
+			url="http://www.ayyayo.com";
 		}
 		webView.loadUrl(url);
 //		AdView adView = (AdView) findViewById(R.id.adView);

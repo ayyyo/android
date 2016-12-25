@@ -1,4 +1,4 @@
-package com.icanappz.fcmpush.Push;
+package com.ayyayo.g.Push;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import android.location.Geocoder;
 import android.os.Build;
 import android.provider.Settings;
 
-import com.icanappz.fcmpush.R;
+import com.ayyayo.g.R;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;

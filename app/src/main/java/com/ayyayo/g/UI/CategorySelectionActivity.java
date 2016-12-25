@@ -1,4 +1,4 @@
-package com.icanappz.fcmpush.UI;
+package com.ayyayo.g.UI;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -15,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.icanappz.fcmpush.Database.Categeries;
-import com.icanappz.fcmpush.R;
-import com.icanappz.fcmpush.Server.Server;
+import com.ayyayo.g.Database.Categeries;
+import com.ayyayo.g.R;
+import com.ayyayo.g.Server.Server;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -66,7 +66,7 @@ public class CategorySelectionActivity extends AppCompatActivity {
                 MainActivity.getRegistrationEmail(this));
         adapter = new CategoryAdapter(this);
         listView.setAdapter(adapter);
-        Server.get("/public/user/categories", param, new JsonHttpResponseHandler() {
+        Server.get("/user/categories", param, new JsonHttpResponseHandler() {
 
             @Override
             public void onStart() {
