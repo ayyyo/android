@@ -78,6 +78,8 @@ public class MainActivity extends FCMActivity {
                     "-1", "-1"));
 
         }
+        View empty = findViewById(R.id.empty);
+        list.setEmptyView(empty);
 
         list.setAdapter(adapter);
 
