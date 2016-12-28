@@ -61,6 +61,12 @@ public class SharedPreferencesUtility {
 		return user;
 	}
 
+	public void setMobile (String mobile) {
+		SharedPreferences.Editor editor = sharedPreferences.edit();
+		editor.putString(Random.SHARED_PREFERENCES_CURRENT_USER, mobile);
+		editor.apply();
+	}
+
 	public void setCurrentUser (UserModel user) {
 		SharedPreferences.Editor editor = sharedPreferences.edit();
 		editor.putString(Random.SHARED_PREFERENCES_CURRENT_USER, new Gson().toJson(user));

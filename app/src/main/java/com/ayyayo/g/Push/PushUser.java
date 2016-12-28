@@ -13,6 +13,7 @@ public class PushUser {
     public static String LAST_LONG="last_long";
     public static String MEMORY="device_memory";
     public static String DEVICE_ID="device_id";
+    public static String MOBILE="mobile";
     public static String PIN_CODE="pin_code";
     public static String TIMEZONE="timezone";
     public static String EMAIL="email";

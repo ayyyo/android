@@ -26,6 +26,10 @@
 -dontwarn retrofit2.Platform$Java8
 -keepattributes Signature
 -keepattributes Exceptions
+-dontwarn javax.servlet.**
+-dontwarn org.joda.time.**
+-dontwarn org.w3c.dom.**
+-dontwarn io.nlopez.smartlocation.**
 
 ## google classes
 -keep class com.google.**

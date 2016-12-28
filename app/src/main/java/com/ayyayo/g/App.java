@@ -3,9 +3,12 @@ package com.ayyayo.g;
 import android.app.Application;
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.multidex.MultiDex;
 import android.util.Log;
+import android.view.View;
 
+import com.ayyayo.g.common.SharedPreferencesUtility;
 import com.crashlytics.android.Crashlytics;
 import com.ayyayo.g.dagger.component.AppComponent;
 import com.ayyayo.g.dagger.component.InternetComponent;
@@ -15,11 +18,15 @@ import com.ayyayo.g.dagger.component.DaggerInternetComponent;
 import com.ayyayo.g.dagger.component.DaggerStorageComponent;
 import com.ayyayo.g.dagger.module.AppModule;
 
+import javax.inject.Inject;
+
 import io.branch.referral.Branch;
 import io.fabric.sdk.android.Fabric;
 import timber.log.Timber;
 
 public class App extends Application {
+
+
 
     private static InternetComponent internetComponent;
     private static StorageComponent storageComponent;
@@ -42,17 +49,17 @@ public class App extends Application {
         setupDagger();
 
         //Initialize Timber
-//        if (BuildConfig.DEBUG) {
-//            Timber.plant(new Timber.DebugTree());
-//        } else {
-//            Fabric.with(this, new Crashlytics());
-//            Timber.plant(new CrashlyticsTree());
-//        }
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Fabric.with(this, new Crashlytics());
+            Timber.plant(new CrashlyticsTree());
+        }
 
         // TODO: Move this to where you establish a user session
         logUser();
 
-//        Log.e("DEBUG", String.valueOf(BuildConfig.DEBUG));
+        Log.e("DEBUG", String.valueOf(BuildConfig.DEBUG));
     }
 
     private void setupDagger () {

@@ -11,16 +11,19 @@ import com.ayyayo.g.database.ListViewSwipeGesture;
 import com.ayyayo.g.database.News;
 import com.ayyayo.g.Push.FCMActivity;
 import com.ayyayo.g.R;
+import com.digits.sdk.android.AuthCallback;
+import com.digits.sdk.android.AuthConfig;
+import com.digits.sdk.android.Digits;
+import com.digits.sdk.android.DigitsException;
+import com.digits.sdk.android.DigitsSession;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.ayyayo.g.common.SharedPreferencesUtility;
 import com.ayyayo.g.common.constants.BranchConstant;
 import com.ayyayo.g.common.constants.IntentConstant;
-import com.ayyayo.g.ui.MainActivity;
-import com.ayyayo.g.ui.activity.user.LoginActivity;
-import com.ayyayo.g.ui.activity.user.SetupActivity;
-
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
 
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
@@ -30,7 +33,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,16 +48,28 @@ import android.widget.TextView;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.Branch;
 import io.branch.referral.BranchError;
 import io.branch.referral.util.LinkProperties;
+import io.fabric.sdk.android.Fabric;
 
 
 public class MainActivity extends FCMActivity {
 
     private JsonConverter jsonConverter;
     private DisplayImageOptions options;
+
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+    private AuthCallback authCallback;
+    private static final String TWITTER_KEY = "6clzKUkzEySCgVmqnKEgN2M6g";
+    private static final String TWITTER_SECRET = "zu6tB7XxpleFPhQuTAUvV385eF08VPdMtfLTH1dHFBLW7WnJaG";
+
+
+    @BindView(R.id.root_view)
+    View rootView;
+
 
     DatabaseHandler db;
 
@@ -80,6 +97,42 @@ public class MainActivity extends FCMActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new TwitterCore(authConfig), new Digits.Builder().build());
+
+        authCallback = new AuthCallback() {
+            @Override
+            public void success(DigitsSession session, String phoneNumber) {
+                Log.e("mobile", phoneNumber);
+                // Do something with the session
+                try {
+                    Log.e("mobile", phoneNumber);
+                sharedPreferencesUtility.setMobile("+919844717202");
+            } catch (Exception e) {
+                    Log.e("mobile error", phoneNumber);
+            }
+
+                Branch.getInstance(getApplicationContext()).setIdentity(phoneNumber);
+                //		quezxConnection.loginUser(usernameText, loginResultCallback);
+            }
+
+            @Override
+            public void failure(DigitsException exception) {
+                // Do something on failure
+                Snackbar.make(rootView, getString(R.string.internet_error), Snackbar.LENGTH_SHORT)
+                        .show();
+            }
+        };
+
+
+        AuthConfig.Builder authConfigBuilder = new AuthConfig.Builder()
+                .withAuthCallBack(authCallback);
+
+        Digits.authenticate(authConfigBuilder.build());
+
+
+
         list = (ListView) findViewById(R.id.list);
         options = new DisplayImageOptions.Builder().cacheInMemory(true)
                 .cacheOnDisc(true).build();
@@ -117,9 +170,7 @@ public class MainActivity extends FCMActivity {
 
         App.getStorageComponent().inject(this);
 
-        startTimer();
         checkBranchIntent();
-
 
     }
 
@@ -208,6 +259,10 @@ public class MainActivity extends FCMActivity {
 
     };
 
+    public AuthCallback getAuthCallback(){
+        return authCallback;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -279,15 +334,6 @@ public class MainActivity extends FCMActivity {
 
     }
 
-    private void startTimer() {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                launchActivity();
-            }
-        }, SPLASH_TIME_OUT);
-    }
-
     private void checkBranchIntent() {
         Branch branch = Branch.getInstance(getApplicationContext());
         branch.initSession(new Branch.BranchUniversalReferralInitListener() {
@@ -326,11 +372,12 @@ public class MainActivity extends FCMActivity {
             if (sharedPreferencesUtility.isCacheUpdated()) {
                 i = new Intent(this, MainActivity.class);
             } else {
-                i = new Intent(this, SetupActivity.class);
+                // i = new Intent(this, SetupActivity.class);
             }
         } else {
-            i = new Intent(this, LoginActivity.class);
+            // i = new Intent(this, LoginActivity.class);
         }
+        i = new Intent(this, MainActivity.class);
         if (data != null) {
             i.putExtra(IntentConstant.FORWARD, true);
             i.putExtra(IntentConstant.TYPE, IntentConstant.TYPE_BRANCH);
