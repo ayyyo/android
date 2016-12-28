@@ -3,4 +3,33 @@
     <color name="colorPrimary">#01ADEF</color>
     <color name="colorPrimaryDark">#427AAB</color>
     <color name="colorAccent">#00B0FF</color>
+    <color name="orange">#EF8B11</color>
+    <color name="transparent_blue">#bb205081</color>
+    <color name="light_green">#A9CF46</color>
+    <color name="progress_bar_transparent_background">#bbacacac</color>
+    <color name="progress_bar_background">#acacac</color>
+    <color name="light_gray">#cecece</color>
+    <color name="border_light_gray">#F0F1F2</color>
+    <color name="border_gray">#B3B5B7</color>
+    <color name="green">#00A859</color>
+    <color name="white_30">#b4ffffff</color>
+    <color name="tabsScrollColor">#ffffff</color>
+    <color name="red">#ED604F</color>
+    <color name="light_blue">#2898C8</color>
+    <color name="fab_pressed">#bbFFFFFF</color>
+    <color name="fab_ripple">#99FFFFFF</color>
+    <color name="state_default">#edf1f2</color>
+    <color name="state_primary">#7266ba</color>
+    <color name="state_success">#27c24c</color>
+    <color name="state_info">#23b7e5</color>
+    <color name="state_warning">#fad733</color>
+    <color name="state_danger">#f05050</color>
+    <color name="state_dark">#3a3f51</color>
+    <color name="gray">#B3B5B7</color>
+    <array name="progressbar">
+        <item>@color/orange</item>
+        <item>@color/transparent_blue</item>
+        <item>@color/colorPrimaryDark</item>
+        <item>@color/light_green</item>
+    </array>
 </resources>

@@ -24,17 +24,18 @@ import android.util.Log;
 import android.util.Patterns;
 import android.widget.Toast;
 
+import com.ayyayo.g.App;
+import com.ayyayo.g.common.JsonConverter;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.ayyayo.g.Database.DatabaseHandler;
-import com.ayyayo.g.Database.News;
+import com.ayyayo.g.database.DatabaseHandler;
+import com.ayyayo.g.database.News;
 import com.ayyayo.g.R;
 import com.ayyayo.g.Server.Server;
 import com.ayyayo.g.Server.ServerConfig;
-import com.ayyayo.g.UI.CustomeWebView;
-import com.ayyayo.g.UI.DailogeNotice;
-import com.ayyayo.g.UI.MainActivity;
+import com.ayyayo.g.ui.CustomeWebView;
+import com.ayyayo.g.ui.DailogeNotice;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -50,6 +51,7 @@ import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProv
 
 public class FCMActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
+    private JsonConverter jsonConverter;
     public static String REG_EMAIL = "user_email";
     public static String NEW_NOTIFICATION = "NEW_NOTIFICATION";
     String possibleEmail;
@@ -91,7 +93,7 @@ public class FCMActivity extends AppCompatActivity implements ActivityCompat.OnR
             Bundle msg = getIntent().getExtras();
             Intent backIntent;
 
-            backIntent = new Intent(getApplicationContext(), MainActivity.class);
+            backIntent = new Intent(getApplicationContext(), App.class);
             backIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
@@ -121,7 +123,7 @@ public class FCMActivity extends AppCompatActivity implements ActivityCompat.OnR
 
                     case 4:
 
-                        DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                        DatabaseHandler db = new DatabaseHandler(getApplicationContext(), jsonConverter);
                         db.addContact(
                                 new News(msg.getString("title"), msg.getString("msg"),
                                         msg.getString("link"), msg.getString("image")),
@@ -188,7 +190,7 @@ public class FCMActivity extends AppCompatActivity implements ActivityCompat.OnR
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // TODO Auto-generated method stub
-                    // MainActivity.this.finish();
+                    // App.this.finish();
                 }
             });
             alert.setMessage("You  are not connected to Internet right now! Please check your internet connection");

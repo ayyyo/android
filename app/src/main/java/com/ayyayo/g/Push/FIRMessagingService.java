@@ -30,13 +30,14 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
+import com.ayyayo.g.App;
+import com.ayyayo.g.common.JsonConverter;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.ayyayo.g.UI.CustomeWebView;
-import com.ayyayo.g.UI.DailogeNotice;
-import com.ayyayo.g.Database.DatabaseHandler;
-import com.ayyayo.g.UI.MainActivity;
-import com.ayyayo.g.Database.News;
+import com.ayyayo.g.ui.CustomeWebView;
+import com.ayyayo.g.ui.DailogeNotice;
+import com.ayyayo.g.database.DatabaseHandler;
+import com.ayyayo.g.database.News;
 import com.ayyayo.g.R;
 
 import java.util.Map;
@@ -50,6 +51,8 @@ import java.util.Map;
  */
 
 public class FIRMessagingService extends FirebaseMessagingService {
+
+    private JsonConverter jsonConverter;
     public static int NOTIFICATION_ID = 1;
     private NotificationManager mNotificationManager;
     NotificationCompat.Builder builder;
@@ -107,7 +110,7 @@ public class FIRMessagingService extends FirebaseMessagingService {
         Intent backIntent;
         Intent intent = null;
         PendingIntent pendingIntent = null;
-        backIntent = new Intent(getApplicationContext(), MainActivity.class);
+        backIntent = new Intent(getApplicationContext(), App.class);
         backIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         SharedPreferences sp;
         Editor editor;
@@ -155,7 +158,7 @@ public class FIRMessagingService extends FirebaseMessagingService {
 
             case 4:
                 backIntent = new Intent(getApplicationContext(),
-                        MainActivity.class);
+                        App.class);
 
                 // The stack builder object will contain an artificial back stack
                 // for the
@@ -172,7 +175,7 @@ public class FIRMessagingService extends FirebaseMessagingService {
                         PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-                DatabaseHandler db = new DatabaseHandler(getApplicationContext());
+                DatabaseHandler db = new DatabaseHandler(getApplicationContext(), jsonConverter);
                 db.addContact(
                         new News(msg.getString("title"), msg.getString("msg"),
                                 msg.getString("link"), msg.getString("image")),

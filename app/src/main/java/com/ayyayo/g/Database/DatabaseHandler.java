@@ -1,4 +1,4 @@
-package com.ayyayo.g.Database;
+package com.ayyayo.g.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,6 +11,9 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ayyayo.g.common.JsonConverter;
+
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -33,8 +36,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	private static final String KEY_LINK = "link";
 	private static final String KEY_SEEN = "is_seen";
 
-	public DatabaseHandler(Context context) {
+	private Context context;
+	private JsonConverter jsonConverter;
+
+	public DatabaseHandler(Context context, JsonConverter jsonConverter) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
+		this.jsonConverter = jsonConverter;
 	}
 
 	// Creating Tables
@@ -76,7 +84,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_LINK, contact.getLink());
 		// Inserting Row
 		db.insert(Table, null, values);
-		
+
 		db.close(); // Closing database connection
 	}
 
@@ -174,9 +182,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// return count
 		return cursor.getCount();
 	}
-	
+
 	public static boolean isNetworkAvailable(Context c) {
-	    ConnectivityManager connectivityManager 
+	    ConnectivityManager connectivityManager
 	          = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 	    return activeNetworkInfo != null && activeNetworkInfo.isConnected();

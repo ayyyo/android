@@ -22,6 +22,12 @@
         <item name="titleTextStyle">@style/MyActionBarTitleText</item>
     </style>
 
+    <style name="ThemeTextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColorHint">@android:color/black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="AppTheme.Dialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFrame">@null</item>
@@ -37,6 +43,22 @@
     </style>
 
     <color name="white">#FFFFFF</color>
+
+    <style name="HashtagView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="tagTextSize">@dimen/small_text</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="LowerCaseTabs" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
 
 
 </resources>

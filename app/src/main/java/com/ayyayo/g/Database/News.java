@@ -1,4 +1,4 @@
-package com.ayyayo.g.Database;
+package com.ayyayo.g.database;
 
 /**
  * Created by Priyesh on 23-Apr-14.

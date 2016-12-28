@@ -1,4 +1,4 @@
-package com.ayyayo.g.UI;
+package com.ayyayo.g.ui;
 
 import com.ayyayo.g.R;
 
@@ -31,21 +31,33 @@ public class PreferenceActivity extends android.preference.PreferenceActivity {
 
         mProgressDialog.setCancelable(false);
 
-        cat = (Preference) findPreference("cat");
+        cat = (Preference) findPreference("contact");
 
+        cat.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent(PreferenceActivity.this,
+                        CustomeWebView.class);
+                intent.putExtra("link", "https://goo.gl/forms/oOGce8OXYZGhdfu43");
 
-        if (getResources().getString(R.string.use_cat).equalsIgnoreCase("true")) {
-            cat.setEnabled(true);
-            cat.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    startActivity(new Intent(PreferenceActivity.this, CategorySelectionActivity.class));
-                    return false;
-                }
-            });
-        } else {
-            cat.setEnabled(false);
-            cat.setSummary("Categories selection is disabled by Admin!");
-        }
+                startActivity(intent);
+                return false;
+            }
+        });
+
+        cat = (Preference) findPreference("about");
+
+        cat.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent(PreferenceActivity.this,
+                        CustomeWebView.class);
+                intent.putExtra("link", "https://goo.gl/forms/oOGce8OXYZGhdfu43");
+
+                startActivity(intent);
+                return false;
+            }
+        });
+
     }
 }

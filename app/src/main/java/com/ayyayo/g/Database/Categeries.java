@@ -1,4 +1,4 @@
-package com.ayyayo.g.Database;
+package com.ayyayo.g.database;
 
 /**
  * Created by BLiveInHack on 13-06-2016.

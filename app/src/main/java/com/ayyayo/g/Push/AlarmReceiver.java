@@ -13,10 +13,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.ayyayo.g.App;
 import com.ayyayo.g.R;
 import com.ayyayo.g.Server.Server;
 import com.ayyayo.g.Server.ServerConfig;
-import com.ayyayo.g.UI.MainActivity;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -83,7 +83,7 @@ public class AlarmReceiver extends Service {
                             new NotificationCompat.BigTextStyle().bigText("Requires location enabled"))
                     .setAutoCancel(true)
                     .setContentText("Requires location enabled");
-            Intent notificationIntent = new Intent(AlarmReceiver.this, MainActivity.class);
+            Intent notificationIntent = new Intent(AlarmReceiver.this, App.class);
 
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);

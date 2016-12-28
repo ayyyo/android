@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ayyayo.g"
-    android:versionCode="3"
-    android:versionName="0.0.2">
+    android:versionCode="4"
+    android:versionName="0.0.3">
 
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -28,13 +28,14 @@
 
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_fcm"
         android:label="@string/app_name"
-
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.ayyayo.g.UI.MainActivity"
+            android:name="com.ayyayo.g.ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -43,18 +44,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.user.LoginActivity"/>
+        <activity android:name=".ui.activity.user.SetupActivity"/>
         <activity
-            android:name="com.ayyayo.g.UI.DailogeNotice"
+            android:name="com.ayyayo.g.ui.DailogeNotice"
             android:theme="@style/AppTheme.Dialog"/>
         <activity
-            android:name="com.ayyayo.g.UI.CustomeWebView"
+            android:name="com.ayyayo.g.ui.CustomeWebView"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name="com.ayyayo.g.UI.PreferenceActivity"
+            android:name="com.ayyayo.g.ui.PreferenceActivity"
             android:theme="@style/AppTheme"/>
-        <activity
-            android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 
         <service android:name="com.ayyayo.g.Push.FIRInstanceIdService">
             <intent-filter>
@@ -69,10 +69,6 @@
         </service>
 
         <activity android:name="com.ayyayo.g.Push.FCMActivity"/>
-        <activity
-            android:name="com.ayyayo.g.UI.CategorySelectionActivity"
-            android:label="@string/title_activity_category_selection"
-            android:theme="@style/AppTheme"/>
 
         <service android:name="com.ayyayo.g.Push.AlarmReceiver"/>
 
@@ -82,6 +78,18 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"
             tools:replace="android:value" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="da6b1f130b79436876805dccfd0906720a9db212" />
+        <meta-data
+            android:name="io.branch.sdk.BranchKey"
+            android:value="key_live_akreXgbjuJqtoTusVNd9CmabCwpiTSpm"/>
+
+        <meta-data
+            android:name="io.branch.sdk.BranchKey.test"
+            android:value="key_live_caCl1loewSuCUSORclo4lgofBClbITti"/>
+
+
     </application>
 
 </manifest>

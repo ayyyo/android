@@ -3,19 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:key="prefKey" >
 
-    <PreferenceCategory android:title="Settings" >
-        <Preference
-            android:key="cat"
-            android:summary="Select categories to filter notifications."
-            android:title="Categories" />
-    </PreferenceCategory>
+    <!--<PreferenceCategory android:title="Settings" >-->
+        <!--<Preference-->
+            <!--android:key="cat"-->
+            <!--android:summary="Select categories to filter notifications."-->
+            <!--android:title="Categories" />-->
+    <!--</PreferenceCategory>-->
     <PreferenceCategory android:title="App" >
         <PreferenceScreen
-            android:summary="Create a sale"
+            android:key="about"
+            android:summary="Click here Create a sale"
             android:title="For shopkeepers and merchents" >
         </PreferenceScreen>
         <PreferenceScreen
-            android:summary="manjeshpv@gmail.com"
+            android:key="contact"
+            android:summary="ayyayocentral@gmail.com"
             android:title="Contact Us" >
         </PreferenceScreen>
      

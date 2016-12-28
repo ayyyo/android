@@ -1,15 +1,25 @@
-package com.ayyayo.g.UI;
+package com.ayyayo.g.ui;
 
+import java.util.HashMap;
 import java.util.List;
 
-import com.ayyayo.g.Database.DatabaseHandler;
-import com.ayyayo.g.Database.ListViewSwipeGesture;
-import com.ayyayo.g.Database.News;
+import com.ayyayo.g.App;
+import com.ayyayo.g.common.JsonConverter;
+import com.ayyayo.g.common.BranchHelper;
+import com.ayyayo.g.database.DatabaseHandler;
+import com.ayyayo.g.database.ListViewSwipeGesture;
+import com.ayyayo.g.database.News;
 import com.ayyayo.g.Push.FCMActivity;
 import com.ayyayo.g.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.ayyayo.g.common.SharedPreferencesUtility;
+import com.ayyayo.g.common.constants.BranchConstant;
+import com.ayyayo.g.common.constants.IntentConstant;
+import com.ayyayo.g.ui.MainActivity;
+import com.ayyayo.g.ui.activity.user.LoginActivity;
+import com.ayyayo.g.ui.activity.user.SetupActivity;
 
 
 import android.content.BroadcastReceiver;
@@ -19,6 +29,7 @@ import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
 
+import android.os.Handler;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -30,10 +41,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
+import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
+import io.branch.referral.util.LinkProperties;
+
 
 public class MainActivity extends FCMActivity {
 
-
+    private JsonConverter jsonConverter;
     private DisplayImageOptions options;
 
     DatabaseHandler db;
@@ -42,6 +60,20 @@ public class MainActivity extends FCMActivity {
     SampleAdapter adapter;
     ListView list;
     LayoutInflater inflater;
+    // Splash screen timer
+    private static final int SPLASH_TIME_OUT = 3000;
+
+    @Inject
+    SharedPreferencesUtility sharedPreferencesUtility;
+    @Inject
+    JsonConverter json;
+    @Inject
+    BranchHelper branchHelper;
+    int checkCount = 2;
+
+    private String data;
+    private String activity;
+
 
 
     @Override
@@ -54,13 +86,13 @@ public class MainActivity extends FCMActivity {
         ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
                 this).defaultDisplayImageOptions(options).build();
         ImageLoader.getInstance().init(config);
-        db = new DatabaseHandler(this);
+        db = new DatabaseHandler(this, jsonConverter);
 
 
         inflater = (LayoutInflater) this
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         adapter = new SampleAdapter(this);
-        db = new DatabaseHandler(this);
+        db = new DatabaseHandler(this, jsonConverter);
         contacts = db.getAllContacts(DatabaseHandler.TABLE_NEWS);
 
         if (contacts.size() != 0) {
@@ -82,6 +114,11 @@ public class MainActivity extends FCMActivity {
         list.setEmptyView(empty);
 
         list.setAdapter(adapter);
+
+        App.getStorageComponent().inject(this);
+
+        startTimer();
+        checkBranchIntent();
 
 
     }
@@ -240,6 +277,68 @@ public class MainActivity extends FCMActivity {
 
         }
 
+    }
+
+    private void startTimer() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                launchActivity();
+            }
+        }, SPLASH_TIME_OUT);
+    }
+
+    private void checkBranchIntent() {
+        Branch branch = Branch.getInstance(getApplicationContext());
+        branch.initSession(new Branch.BranchUniversalReferralInitListener() {
+            @Override
+            public void onInitFinished(BranchUniversalObject branchUniversalObject,
+                                       LinkProperties linkProperties, BranchError branchError) {
+                //If not Launched by clicking Branch link
+                if (branchUniversalObject == null) {
+                    launchActivity();
+                    return;
+                }
+                if (!branchUniversalObject.getMetadata().containsKey("$android_deeplink_path")) {
+                    HashMap<String, String> params = branchUniversalObject.getMetadata();
+                    if (params.get(BranchConstant.TYPE).equalsIgnoreCase(BranchConstant.TYPE_OPEN_ACTIVITY)) {
+                        if (sharedPreferencesUtility.isUserLoggedIn() && branchHelper.openActivity(
+                                MainActivity.this, params.get(BranchConstant.DATA),
+                                params.get(BranchConstant.ACTIVITY))) {
+                            finish();
+                            return;
+                        }
+                        data = params.get(BranchConstant.DATA);
+                        activity = params.get(BranchConstant.ACTIVITY);
+                        launchActivity();
+                    }
+                }
+            }
+        }, this.getIntent().getData(), this);
+    }
+
+
+    private void launchActivity() {
+        if (--checkCount > 0)
+            return;
+        Intent i;
+        if (sharedPreferencesUtility.isUserLoggedIn()) {
+            if (sharedPreferencesUtility.isCacheUpdated()) {
+                i = new Intent(this, MainActivity.class);
+            } else {
+                i = new Intent(this, SetupActivity.class);
+            }
+        } else {
+            i = new Intent(this, LoginActivity.class);
+        }
+        if (data != null) {
+            i.putExtra(IntentConstant.FORWARD, true);
+            i.putExtra(IntentConstant.TYPE, IntentConstant.TYPE_BRANCH);
+            i.putExtra(IntentConstant.DATA, data);
+            i.putExtra(IntentConstant.ACTIVITY, activity);
+        }
+        startActivity(i);
+        finish();
     }
 
 }

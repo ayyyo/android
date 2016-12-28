@@ -1,4 +1,4 @@
-package com.ayyayo.g.Database;
+package com.ayyayo.g.database;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

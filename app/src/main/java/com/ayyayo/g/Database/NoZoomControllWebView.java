@@ -1,4 +1,4 @@
-package com.ayyayo.g.Database;
+package com.ayyayo.g.database;
 
 import java.lang.reflect.Method;
 

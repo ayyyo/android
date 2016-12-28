@@ -1,8 +1,11 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
+        classpath 'io.fabric.tools:gradle:1.21.7'
         classpath 'com.android.tools.build:gradle:2.2.3'
         classpath 'com.google.gms:google-services:3.0.0'
     }
@@ -14,45 +17,184 @@ allprojects {
     }
 }
 
-
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url "https://jitpack.io" }
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+def versionMajor = 0
+def versionMinor = 1
+def versionPatch = 8
+def versionBuild = 0
+
+def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def buildTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'", TimeZone.getTimeZone("UTC"))
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "24.0.3"
+
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            output.outputFile = new File(
+                    output.outputFile.parent,
+                    output.outputFile.name.replace(".apk", "-${variant.versionName}.apk"))
+        }
+    }
+    compileOptions.incremental = false
+
 
     defaultConfig {
         applicationId "com.ayyayo.g"
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion 24
+        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+
+        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+    signingConfigs {
+        config {
+            keyAlias 'Ayyayo'
+            keyPassword 'Easy@2020'
+            storeFile file('../../com.ayyayo.g.jks')
+            storePassword 'Easy@2020'
         }
     }
-    lintOptions{
-        disable "ResourceType"
+
+    buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
     }
 
+    dataBinding {
+        enabled = true
+    }
+
+    lintOptions {
+        disable "ResourceType"
+        disable 'InvalidPackage'
+    }
+    productFlavors {
+    }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'LICENSE.txt'
+    }
 }
 
 dependencies {
     compile('io.nlopez.smartlocation:library:3.2.7') {
         transitive = false
     }
-
-    compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.loopj.android:android-async-http:1.4.9'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.google.firebase:firebase-messaging:9.6.0'
     compile 'com.google.firebase:firebase-ads:9.6.0'
-    compile 'com.google.android.gms:play-services-location:9.6.0'
     compile 'com.google.firebase:firebase-crash:9.6.0'
+    compile 'com.google.android.gms:play-services-location:9.6.0'
+    // google repository
+    compile('com.android.support:appcompat-v7:24.2.1') {
+        exclude group: 'com.android.support'
+    }
+    compile('com.android.support:design:24.2.0') {
+        exclude group: 'com.android.support'
+    }
+    compile('com.android.support:cardview-v7:24.2.0') {
+        exclude group: 'com.android.support'
+    }
+    compile('com.android.support:recyclerview-v7:24.2.0') {
+        exclude group: 'com.android.support'
+    }
+
+    /**
+     * initial repository
+     **/
+    // butter knife
+    compile('com.jakewharton:butterknife:8.2.1') {
+        exclude group: 'com.google.guava'
+    }
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    // picasso
+    compile('com.squareup.picasso:picasso:2.5.2') {
+        exclude group: 'com.google.guava'
+    }
+    //Timber Log
+    compile('com.jakewharton.timber:timber:4.3.0') {
+        exclude group: 'com.google.guava'
+    }
+    // dagger
+    compile('com.google.dagger:dagger:2.6') {
+        exclude group: 'com.google.guava'
+    }
+    apt 'com.google.dagger:dagger-compiler:2.6'
+    provided 'javax.annotation:jsr250-api:1.0'
+    //Gson
+    compile('com.google.code.gson:gson:2.7') {
+        exclude group: 'com.google.guava'
+    }
+    //Retrofit
+    compile('com.squareup.retrofit2:retrofit:2.1.0') {
+        exclude group: 'com.google.guava'
+    }
+    compile('com.squareup.retrofit:converter-gson:2.0.0-beta2') {
+        exclude group: 'com.google.guava'
+    }
+    //multidex
+    compile('com.android.support:multidex:1.0.1') {
+        exclude group: 'com.google.guava'
+    }
+    // crashlytics
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+        exclude group: 'com.google.guava'
+    }
+    //Guava
+    compile 'com.google.guava:guava:19.0'
+    // Common Utils
+    compile 'commons-io:commons-io:2.5'
+    /**
+     * requirement base repository
+     */
+    //circular progressbar
+    compile('com.github.castorflex.smoothprogressbar:library-circular:1.2.0') {
+        exclude group: 'com.google.guava'
+    }
+    //parallax recyclerView
+    compile('com.github.kanytu:android-parallax-recyclerview:v1.7') {
+        exclude group: 'com.google.guava'
+    }
+    // event bus
+    compile('org.greenrobot:eventbus:3.0.0') {
+        exclude group: 'com.google.guava'
+    }
+    // HashTag
+    compile('com.github.greenfrvr:hashtag-view:1.2.1') {
+        exclude group: 'com.google.guava'
+    }
+    // branch.io
+    compile('io.branch.sdk.android:library:2.4.5') {
+        exclude module: 'answers-shim'
+    }
 }
+
 apply plugin: 'com.google.gms.google-services'
 

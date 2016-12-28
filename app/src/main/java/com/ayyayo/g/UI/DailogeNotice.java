@@ -1,4 +1,4 @@
-package com.ayyayo.g.UI;
+package com.ayyayo.g.ui;
 
 import com.ayyayo.g.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;

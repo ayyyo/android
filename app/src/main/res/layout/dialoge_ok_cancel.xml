@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_5dp"
+        android:text="@string/test_client_name"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/normal_text"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_5dp"
+        android:text="@string/test_client_name"
+        android:textSize="@dimen/small_text"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/button_ok"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_5dp"
+            android:layout_weight="1"
+            android:background="@color/green"
+            android:gravity="center"
+            android:padding="@dimen/margin_10dp"
+            android:text="@string/ok"
+            android:textColor="@android:color/white"/>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/button_cancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_5dp"
+            android:layout_weight="1"
+            android:background="@color/red"
+            android:gravity="center"
+            android:padding="@dimen/margin_10dp"
+            android:text="@string/cancel"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
+
+</LinearLayout>

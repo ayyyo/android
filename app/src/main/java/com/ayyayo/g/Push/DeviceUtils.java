@@ -157,12 +157,12 @@ public class DeviceUtils {
                         return postCode;
                     }
                 } else {
-                    //Toast.makeText(MainActivity.this, "No tax found", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(App.this, "No tax found", Toast.LENGTH_SHORT).show();
                 }
             } catch (NullPointerException e) {
-                //Toast.makeText(MainActivity.this, "No tax found", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(App.this, "No tax found", Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
-                //Toast.makeText(MainActivity.this, "No tax found", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(App.this, "No tax found", Toast.LENGTH_SHORT).show();
             }
         }
         return "";
