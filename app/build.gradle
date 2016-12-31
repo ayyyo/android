@@ -52,23 +52,11 @@ android {
         applicationId "com.ayyayo.g"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100 + versionBuild
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
 
-        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
-        buildConfigField "String", "BUILD_TIME", "\"${buildTime}\""
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
     }
 
-    signingConfigs {
-        config {
-            keyAlias 'Ayyayo'
-            keyPassword 'Easy@2020'
-            storeFile file('../../com.ayyayo.g.jks')
-            storePassword 'Easy@2020'
-        }
-    }
 
     buildTypes {
         release {
@@ -77,22 +65,14 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
-    }
 
     lintOptions {
         disable "ResourceType"
-        disable 'InvalidPackage'
-        checkReleaseBuilds false
+
     }
     productFlavors {
     }
 
-    packagingOptions {
-        exclude 'META-INF/services/javax.annotation.processing.Processor'
-        exclude 'LICENSE.txt'
-    }
 }
 
 dependencies {
